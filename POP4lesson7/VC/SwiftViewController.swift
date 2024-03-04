@@ -76,6 +76,7 @@ class SwiftViewController: UIViewController, ValidatorProtocol {
     @objc private func validateNumber(_ sender: Any) {
         guard let number = recipientsCardNumberTF.text?.count else { return }
         validateNumber(count: Double(number), validateBtn: checkButton)
+        
         amountTF.addTarget(self, action: #selector(validateTFAmount), for: .editingChanged)
     }
     

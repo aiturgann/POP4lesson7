@@ -16,10 +16,21 @@ protocol ValidatorProtocol {
 
 extension ValidatorProtocol {
     
+    func validateNumber(count: Double, validateBtn: UIButton) {
+        if count != 16 {
+            validateBtn.isEnabled = false
+            validateBtn.layer.borderColor = UIColor.red.cgColor
+            validateBtn.backgroundColor = .systemGray5
+        } else {
+            validateBtn.layer.borderColor = UIColor.darkGray.cgColor
+        }
+        
+    }
+    
     func validateAmount(amount: Double, validateBtn: UIButton, balance: Double) {
         if amount >= 20, amount <= balance {
             validateBtn.isEnabled = true
-            validateBtn.backgroundColor = .cyan
+            validateBtn.backgroundColor = .systemBlue
         } else {
             validateBtn.isEnabled = false
             validateBtn.backgroundColor = .systemGray5
@@ -35,13 +46,5 @@ extension ValidatorProtocol {
     }
     
     
-    func validateNumber(count: Double, validateBtn: UIButton) {
-        if count != 16 {
-            validateBtn.isEnabled = false
-            validateBtn.layer.borderColor = UIColor.red.cgColor
-        } else {
-            validateBtn.layer.borderColor = UIColor.darkGray.cgColor
-        }
-        
-    }
+    
 }

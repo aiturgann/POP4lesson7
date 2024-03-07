@@ -9,11 +9,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    private let visaButton = MakerView().uiButtonMaker(title: "Visa to Visa")
+    private let visaButton = MakerView.shared.uiButtonMaker(title: "Visa to Visa")
     
-    private let elcartButton = MakerView().uiButtonMaker(title: "Elcart to Elcart")
+    private let elcartButton = MakerView.shared.uiButtonMaker(title: "Elcart to Elcart")
     
-    private let swiftButton = MakerView().uiButtonMaker(title: "Swift to Swift")
+    private let swiftButton = MakerView.shared.uiButtonMaker(title: "Swift to Swift")
 
     override func viewDidLoad() {
         super.viewDidLoad()

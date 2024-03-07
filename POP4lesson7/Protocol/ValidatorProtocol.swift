@@ -10,30 +10,40 @@ import UIKit
 
 protocol ValidatorProtocol {
     
-    func validateAmount(amount: Double, validateBtn: UIButton, balance: Double)
-    
+    func validateTF(number: UITextField, amount: UITextField, balanceL: UILabel, button: UIButton)
+            
 }
 
 extension ValidatorProtocol {
     
-    func validateNumber(count: Double, validateBtn: UIButton) {
-        if count != 16 {
-            validateBtn.isEnabled = false
-            validateBtn.layer.borderColor = UIColor.red.cgColor
-            validateBtn.backgroundColor = .systemGray5
-        } else {
-            validateBtn.layer.borderColor = UIColor.darkGray.cgColor
+    func isCorrectNumber(count: Int) -> Bool {
+        if count == 16 {
+            return true
         }
-        
+    
+        return false
     }
     
-    func validateAmount(amount: Double, validateBtn: UIButton, balance: Double) {
+    func isCorrectAmount(amount: Double, balance: Double) -> Bool {
         if amount >= 20, amount <= balance {
-            validateBtn.isEnabled = true
-            validateBtn.backgroundColor = .systemBlue
+            return true
+        }
+        
+        return false
+    }
+    
+    
+    func validateTF(number: UITextField, amount: UITextField, balanceL: UILabel, button: UIButton) {
+        guard let amount = amount.text, let balance = balanceL.text, let number = number.text?.count else { return }
+        
+        if isCorrectNumber(count: number), isCorrectAmount(amount: Double(amount) ?? 0, balance: Double(balance) ?? 0) {
+            button.isEnabled = true
+            button.layer.borderColor = UIColor.darkGray.cgColor
+            button.backgroundColor = .systemBlue
         } else {
-            validateBtn.isEnabled = false
-            validateBtn.backgroundColor = .systemGray5
+            button.isEnabled = false
+            button.layer.borderColor = UIColor.red.cgColor
+            button.backgroundColor = .systemGray5
         }
     }
     

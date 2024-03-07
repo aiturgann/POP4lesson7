@@ -9,19 +9,19 @@ import UIKit
 
 class SwiftViewController: UIViewController, ValidatorProtocol {
     
-    private let stackView = MakerView().uiStackViewMaker(axis: .vertical)
+    private let stackView = MakerView.shared.uiStackViewMaker(axis: .vertical)
     
-    private let userCardNumberLabel = MakerView().uiLabelMaker(text: "1150 8262 7133 5264")
+    private let userCardNumberLabel = MakerView.shared.uiLabelMaker(text: "1150 8262 7133 5264")
     
-    private let balanceLabel = MakerView().uiLabelMaker(text: "2200",
+    private let balanceLabel = MakerView.shared.uiLabelMaker(text: "2200",
                                                         size: 24,
                                                         weight: .bold)
     
-    private let recipientsCardNumberTF = MakerView().uiTextFieldMaker(placeholder: "Recipient's Card Number")
+    private let recipientsCardNumberTF = MakerView.shared.uiTextFieldMaker(placeholder: "Recipient's Card Number")
     
-    private let amountTF = MakerView().uiTextFieldMaker(placeholder: "Enter an Amount")
+    private let amountTF = MakerView.shared.uiTextFieldMaker(placeholder: "Enter an Amount")
     
-    private let checkButton = MakerView().uiButtonMaker(title: "Check Amount",
+    private let checkButton = MakerView.shared.uiButtonMaker(title: "Check Amount",
                                                         titleColor: .white)
 
     override func viewDidLoad() {
@@ -70,21 +70,14 @@ class SwiftViewController: UIViewController, ValidatorProtocol {
     }
     
     private func setTarget() {
-        recipientsCardNumberTF.addTarget(self, action: #selector(validateNumber), for: .editingChanged)
-    }
-    
-    @objc private func validateNumber(_ sender: Any) {
-        guard let number = recipientsCardNumberTF.text?.count else { return }
-        validateNumber(count: Double(number), validateBtn: checkButton)
-        
-        amountTF.addTarget(self, action: #selector(validateTFAmount), for: .editingChanged)
-    }
-    
-    @objc private func validateTFAmount(_ sender: Any) {
-        guard let amount = amountTF.text, let balance = balanceLabel.text else { return }
-        validateAmount(amount: Double(amount) ?? 0, validateBtn: checkButton, balance: Double(balance) ?? 0)
-        
+        recipientsCardNumberTF.addTarget(self, action: #selector(validateFields), for: .editingChanged)
+        amountTF.addTarget(self, action: #selector(validateFields), for: .editingChanged)
         checkButton.addTarget(self, action: #selector(successTransfer), for: .touchUpInside)
+    }
+    
+    
+    @objc private func validateFields(_ sender: Any) {
+        validateTF(number: recipientsCardNumberTF, amount: amountTF, balanceL: balanceLabel, button: checkButton)
     }
     
     @objc private func successTransfer(_ sender: Any) {

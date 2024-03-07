@@ -7,7 +7,10 @@
 
 import UIKit
 
-class MakerView {
+final class MakerView {
+    
+    static let shared = MakerView()
+    
     func uiImageMaker(image: UIImage? = nil,
                       tintColor: UIColor = .tintColor,
                       contentMode: UIView.ContentMode = .scaleToFill,
